@@ -1,0 +1,11 @@
+com\github\nogueiralegacy\eventsourcing\domain\Evento.class
+com\github\nogueiralegacy\eventsourcing\domain\ContaBancaria.class
+com\github\nogueiralegacy\eventsourcing\service\ContaBancariaService.class
+com\github\nogueiralegacy\eventsourcing\domain\Debito.class
+com\github\nogueiralegacy\eventsourcing\domain\repository\TransacaoRepository.class
+com\github\nogueiralegacy\eventsourcing\domain\Transacao.class
+com\github\nogueiralegacy\eventsourcing\domain\Credito.class
+com\github\nogueiralegacy\eventsourcing\domain\repository\ContaBancariaRepository.class
+com\github\nogueiralegacy\eventsourcing\EventsourcingApplication.class
+com\github\nogueiralegacy\eventsourcing\domain\OperacaoTipo.class
+com\github\nogueiralegacy\eventsourcing\utils\Utils.class
