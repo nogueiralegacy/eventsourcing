@@ -25,7 +25,11 @@ public class ContaBancaria {
     public double getSaldo() {
         double saldo = 0.0;
         for (Evento evento : movimentacoes) {
-            saldo += evento.getValor();
+            if (evento.getTipo().equals("Credito")) {
+                saldo += evento.getValor();
+            } else {
+                saldo -= evento.getValor();
+            }
         }
 
         return saldo;

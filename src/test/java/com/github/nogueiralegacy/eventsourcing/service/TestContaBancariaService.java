@@ -52,9 +52,10 @@ public class TestContaBancariaService {
 
         ContaBancaria contaBancaria = new ContaBancaria("111.222.333-44");
         contaBancaria.creditar(100);
+        contaBancaria.debitar(50);
 
         contaBancariaService.save(contaBancaria);
 
-        assertEquals(100, contaBancaria.getSaldo());
+        assertEquals(50, contaBancaria.getSaldo());
     }
 }
