@@ -1,64 +1,33 @@
 package com.github.nogueiralegacy.eventsourcing.domain;
 
-import jakarta.persistence.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
+import lombok.Data;
 
 import java.util.HashSet;
 import java.util.Set;
 
-
-@Entity
+@Data
 public class ContaBancaria {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(nullable = false)
-    private String CPF;
-    @Column(nullable = true)
-    private double saldo;
-    @OneToMany
-    @JoinColumn(name = "id_conta")
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private Set<Transacao> transacoes = new HashSet<>();
-
-    protected ContaBancaria() {}
+    private final String CPF;
+    private Set<Evento> movimentacoes = new HashSet<>();
 
     public ContaBancaria(String CPF) {
         this.CPF = CPF;
     }
 
     public void creditar(double valor) {
-        transacoes.add(new Transacao(new Credito(valor)));
+        movimentacoes.add(new Credito(valor));
     }
 
     public void debitar(double valor) {
-        transacoes.add(new Transacao(new Debito(valor)));
-    }
-
-    private double applyEvent(Evento evento, double saldo) {
-        double resultado = 0;
-        if (evento instanceof Credito) {
-            resultado = saldo + evento.getValor();
-        } else if (evento instanceof Debito) {
-            resultado = saldo - evento.getValor();
-        }
-
-        return resultado;
+        movimentacoes.add(new Debito(valor));
     }
 
     public double getSaldo() {
-        double saldoResultado = 0;
-        for (Transacao transacao : transacoes) {
-           saldoResultado += applyEvent(transacao.getEvento(), saldoResultado);
+        double saldo = 0.0;
+        for (Evento evento : movimentacoes) {
+            saldo += evento.getValor();
         }
-        setSaldo(saldoResultado);
-        return this.saldo;
+
+        return saldo;
     }
-
-    private void setSaldo(double saldo) {
-        this.saldo = saldo;
-    }
-
-
 }

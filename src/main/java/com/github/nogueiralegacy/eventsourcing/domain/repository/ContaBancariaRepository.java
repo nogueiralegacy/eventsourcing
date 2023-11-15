@@ -1,7 +1,11 @@
 package com.github.nogueiralegacy.eventsourcing.domain.repository;
 
-import com.github.nogueiralegacy.eventsourcing.domain.Transacao;
-import org.springframework.data.repository.CrudRepository;
+import com.github.nogueiralegacy.eventsourcing.domain.ContaBancaria;
 
-public interface ContaBancariaRepository extends CrudRepository<Transacao, Long> {
+import java.util.Optional;
+
+public interface ContaBancariaRepository {
+    void save(ContaBancaria contaBancaria);
+
+    Optional<ContaBancaria> findByCPF(String cpf);
 }
